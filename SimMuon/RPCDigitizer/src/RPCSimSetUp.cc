@@ -105,7 +105,11 @@ void RPCSimSetUp::setRPCSetUp(const std::vector<RPCStripNoises::NoiseItem>& vnoi
 
   uint32_t detId, current_detId, this_detId;
   RPCDetId rpcId, current_rpcId, this_rpcId;
-  const RPCRoll * current_roll,* this_roll;
+
+  //const RPCRoll * current_roll,* this_roll;
+  const RPCRoll * current_roll = NULL;
+  const RPCRoll * this_roll = NULL;
+
   unsigned int current_nStrips;
 
   LogDebug ("RPCSimSetup")<<"RPCSimSetUp::setRPCSetUp :: ClusterSizeItem :: begin"<<std::endl;
@@ -222,7 +226,10 @@ void RPCSimSetUp::setRPCSetUp(const std::vector<RPCStripNoises::NoiseItem>& vnoi
   }
 
   sslognoiseitem <<"Start Position ::            current_detId = "<<current_detId<<" aka "<<current_rpcId;
-  sslognoiseitem <<" is a valid roll with pointer "<<current_roll<<" and has "<<current_roll->nstrips()<<" strips"<<std::endl;
+  if( current_roll != NULL)
+    sslognoiseitem <<" is a valid roll with pointer "<<current_roll<<" and has "<<current_roll->nstrips()<<" strips"<<std::endl;
+  else 
+    sslognoiseitem << " There is something strange with your geometry. " << std::endl;
   sslognoiseitem <<" ------------------------------------------------------------------------------------------------------------------------------------- "<<std::endl;
   for(std::vector<RPCStripNoises::NoiseItem>::const_iterator it = vnoise.begin(); it != vnoise.end(); ++it) {
 
